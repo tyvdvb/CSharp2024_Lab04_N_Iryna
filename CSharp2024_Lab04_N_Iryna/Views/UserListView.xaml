@@ -1,0 +1,84 @@
+﻿<UserControl x:Class="CSharp2024_Lab04_N_Iryna.Views.UserListView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:CSharp2024_Lab04_N_Iryna.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800" IsEnabled="{Binding IsEnabled, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="50" />
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Column="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100" />
+                <ColumnDefinition Width="110" />
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Text="Sort by: " FontWeight="ExtraBlack"  VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="16" />
+            <ComboBox Grid.Column="1" Margin="5" ItemsSource="{Binding SortingFields}" Text="{Binding SortingBy, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  />
+        </Grid>
+
+        <Grid Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Grid.Column="0" Text="Filter by:" FontWeight="ExtraBlack"  VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="15" Margin="0,0,10,0" />
+            <ComboBox Grid.Column="1" Margin="5" ItemsSource="{Binding SortingFields}" Text="{Binding FilterBy, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  >
+                <ComboBox.Background>
+                    <LinearGradientBrush EndPoint="0,1">
+                        <GradientStop Color="#FFF0F0F0"/>
+                        <GradientStop Color="#FFFFF5F5" Offset="1"/>
+                    </LinearGradientBrush>
+                </ComboBox.Background>
+            </ComboBox>
+
+
+        </Grid>
+
+        <Grid Grid.Column="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                
+            </Grid.ColumnDefinitions>
+
+            <TextBox Grid.Column="0" Margin="5" Text="{Binding FilterValue, Mode=TwoWay}"/>
+            <Button Grid.Column="1" Margin="5" Content="APPLY" FontWeight="ExtraBlack" Command="{Binding ApplyFilterCommand}"></Button>
+        </Grid>
+        <DataGrid Name="TableGrid" Margin="10" Grid.ColumnSpan="3" Grid.Row="1" IsReadOnly="True"
+                  SelectedItem="{Binding SelectedPerson, Mode=TwoWay}" SelectionUnit="FullRow"
+                  ItemsSource="{Binding People, Mode=OneWay}" 
+                  SelectionMode="Single" CanUserSortColumns="False" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="First name" Binding="{Binding FirstName}" />
+                <DataGridTextColumn Header="Last name" Binding="{Binding LastName}" />
+                <DataGridTextColumn Header="Email" Binding="{Binding Email}" />
+                <DataGridTextColumn Header="Birthday" Binding="{Binding BirthDate}" />
+                <DataGridCheckBoxColumn Header="Is born today?" Binding="{Binding IsBirthday, Mode=OneWay}" IsReadOnly="False" />
+                <DataGridCheckBoxColumn Header="Is an adult?" Binding="{Binding IsAdult, Mode=OneTime}" IsReadOnly="False" />
+                <DataGridTextColumn Header="SunSign" Binding="{Binding SunSign}" />
+                <DataGridTextColumn Header="ChineseSign" Binding="{Binding ChineseSign}" />
+                
+            </DataGrid.Columns>
+        </DataGrid>
+        
+        <Button Content="ADD" FontWeight="ExtraBlack" Grid.Row="2" Grid.Column="0" Margin="5" Command="{Binding CreatePersonCommand}" Background="#FFA3D477" />
+        <Button Content="EDIT" FontWeight="ExtraBlack" Grid.Row="2" Grid.Column="1" Margin="5" Command="{Binding EditPersonCommand}" Background="#FFDCC093" />
+        <Button Content="DELETE" FontWeight="ExtraBlack" Grid.Row="2" Grid.Column="2" Margin="5"
+                Command="{Binding DeletePersonCommand}" Background="#FFFE8484" />
+    </Grid>
+</UserControl>
