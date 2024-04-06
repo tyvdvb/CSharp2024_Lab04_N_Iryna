@@ -15,6 +15,7 @@ namespace CSharp2024_Lab04_N_Iryna.ViewModels
     {
 
         private RelayCommand<object> _editPersonCommand;
+        private RelayCommand<object>? _goBackCommand;
         private bool _isEnabled = true;
         private Action _gotoUserListView;
 
@@ -44,6 +45,14 @@ namespace CSharp2024_Lab04_N_Iryna.ViewModels
         }
 
         public RelayCommand<object> UpdateCommand => _editPersonCommand ??= new RelayCommand<object>(_ => UpdatePerson());
+        public RelayCommand<object> GoBackCommand =>
+          _goBackCommand ??= new RelayCommand<object>(_ => GoBack());
+
+
+        private void GoBack()
+        {
+            _gotoUserListView.Invoke();
+        }
 
         #endregion
 

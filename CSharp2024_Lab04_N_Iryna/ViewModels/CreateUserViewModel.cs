@@ -17,6 +17,7 @@ namespace CSharp2024_Lab04_N_Iryna.ViewModels
 
         private bool _isEnabled = true;
         private RelayCommand<object> _createCommand;
+        private RelayCommand<object>? _goBackCommand;
         private Action _gotoUserListView;
 
 
@@ -51,6 +52,9 @@ namespace CSharp2024_Lab04_N_Iryna.ViewModels
         public RelayCommand<object> CreateCommand =>
             _createCommand ??= new RelayCommand<object>(_ => Create(), BoxesFilled);
 
+        public RelayCommand<object> GoBackCommand =>
+            _goBackCommand ??= new RelayCommand<object>(_ => GoBack());
+
         #endregion
 
         internal async void Create()
@@ -83,10 +87,11 @@ namespace CSharp2024_Lab04_N_Iryna.ViewModels
             _gotoUserListView.Invoke();
         }
 
-        private void GotoUserList()
+        private void GoBack()
         {
             _gotoUserListView.Invoke();
         }
+
 
         private bool BoxesFilled(object obj)
         {
